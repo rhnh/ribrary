@@ -13,3 +13,5 @@ webpack.config.*
 node_modules/
 
 .eslintrc.json
+
+README.md
