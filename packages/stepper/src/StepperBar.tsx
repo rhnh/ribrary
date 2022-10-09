@@ -74,7 +74,7 @@ export const StepperBar: FC<Props> = ({
                   height={size}
                   width={size}
                   fadePercentage={fadePercentage}
-                  className="step-buttons step-bar step-bar-current"
+                  className="step-buttons step-bar-buttons step-bar-current"
                 >
                   &#128504;
                 </Button>
@@ -85,7 +85,7 @@ export const StepperBar: FC<Props> = ({
                   height={size}
                   width={size}
                   fadePercentage={fadePercentage}
-                  className="step-buttons step-bar step-bar-previous"
+                  className="step-buttons step-bar-buttons step-bar-previous"
                 >
                   &#128504;
                 </Button>
@@ -97,7 +97,7 @@ export const StepperBar: FC<Props> = ({
                 title={`${1 + i}`}
                 fadePercentage={fadePercentage}
                 rgbaColor={`${rgbColor ? rgbColor : colors.secondaryDark}`}
-                className="step-buttons step-bar step-bar-next"
+                className="step-buttons step-bar-buttons step-bar-next"
               ></Button>
             )}
           </li>
