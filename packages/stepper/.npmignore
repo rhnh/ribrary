@@ -1,0 +1,15 @@
+src/
+
+package-lock.*
+
+package.json
+
+tsconfig.*
+
+webpack.config.*
+
+.vscode/
+
+node_modules/
+
+.eslintrc.json

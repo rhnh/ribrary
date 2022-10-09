@@ -1,0 +1,37 @@
+{
+  "name": "@ribrary/stepper",
+  "version": "0.0.1",
+  "description": "A Simple react Stepper component",
+  "main": "./dist/main.js",
+  "types": "dist/types/index.d.ts",
+  "scripts": {
+    "build": "webpack -c ./webpack.config.ts",
+    "dev": "webpack -c ./webpack.config.ts"
+  },
+  "keywords": [
+    "stepper",
+    "react stepper",
+    "react"
+  ],
+  "author": "rhnh",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.7.18",
+    "@types/webpack-node-externals": "^2.5.3",
+    "css-loader": "^6.7.1",
+    "eslint": "^8.24.0",
+    "eslint-plugin-workspaces": "^0.7.0",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.4.1",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths-webpack-plugin": "^4.0.0",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "dependencies": {
+    "@emotion/css": "^11.10.0",
+    "@emotion/styled": "^11.10.4",
+    "react": "^18.2.0"
+  }
+}
