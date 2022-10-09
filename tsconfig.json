@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react",
+    "declaration": true,
+    "declarationDir": "dist/types",
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "removeComments": true
+  },
+  "exclude": ["**/node_modules/**"]
+}
