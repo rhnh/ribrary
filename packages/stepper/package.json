@@ -1,9 +1,12 @@
 {
   "name": "@ribrary/stepper",
-  "version": "0.0.46",
+  "version": "0.0.1",
   "description": "A Simple react Stepper component",
   "main": "./dist/main.js",
   "types": "dist/types/index.d.ts",
+  "files": [
+    "./dist/**"
+  ],
   "scripts": {
     "build": "webpack -c ./webpack.config.ts",
     "dev": "webpack -c ./webpack.config.ts"

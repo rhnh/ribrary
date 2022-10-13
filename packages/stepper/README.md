@@ -3,7 +3,9 @@
 
 # installation:
 ```shell
- npm i @ribrary/stepper 
+
+  npm i @ribrary/stepper 
+
  ```
 
 It has four components
@@ -31,12 +33,21 @@ It has four components
 ```
 
 
-# <StepperBar   rgbColor="a color name in RGB", size={23} fadePercentage={23}>
+# Customizing <StepperBar>
+```js
+<StepperBar   rgbColor="a color name in RGB", size={23} fadePercentage={23}>
+```
 - rgbColor: name for color button, otherwise you can change with your following css
 - size: size of buttons 
 - fadePercentage: fade on hover
 
-# <StepperNav limiters={true} steps={true} rgbColor:"rgb(255,0,0)" size={40}  fadePercentage={32}/>
+#  Customizing <StepperNav>
+```js
+
+<StepperNav limiters={true} steps={true} rgbColor:"rgb(255,0,0)" size={40}  fadePercentage={32}/>
+
+```
+
 - limiters: end and start buttons
 - steps: show all numerics steps
 - rgbColor: color for buttons: you can over ride with your own css
@@ -67,9 +78,9 @@ It has four components
 </Stepper>
 
  ```
-### Customizations
+### Other Customizations
 - step-buttons: for all buttons
-#### for <StepperNav/>
+#### css classes for <StepperNav/>
 - stepper-buttons: for all buttons
 - stepper-nav: for main section 
 - stepper-nav--btns: for all navigation buttons
@@ -78,7 +89,7 @@ It has four components
 - stepper-nav--current: for current buttons
 - stepper-nav--next
 
-#### for <StepperBar/>
+#### css classes for <StepperBar/>
 - stepper-buttons: for all buttons
 - stepper-bar: main class for nav
 - stepper-bar--btn: for all bar buttons
