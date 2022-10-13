@@ -1,13 +1,14 @@
-import React, { cloneElement, Children, useId } from "react"
+import React, { cloneElement, Children } from "react"
 import type { FC, ReactElement } from "react"
+import { useStepper } from "./Stepper"
 import {
-  CurrentStepButton,
   NextStepButton,
   PreviousStepButton,
-  useStepper,
-} from "./Stepper"
+  CurrentStepButton,
+} from "./Navigation"
 import { canUseDOM } from "utils"
 import { Button } from "components/Button"
+import { css } from "@emotion/css"
 
 interface StepButtonsProps {
   limiters?: boolean
@@ -32,19 +33,19 @@ export const StepperNav: FC<StepButtonsProps> = ({
   steps,
   fadePercentage = 0.45,
 }) => {
-  const { total, step, setCurrentStep } = useStepper()
+  const { step, setCurrentStep, labels, total } = useStepper()
+
   //if it is on server and no JS.
   if (!canUseDOM) {
     return null
   }
 
-  const totalStepArray = Array.from(Array(total).keys())
   const numberOfChildren = Children.count(children)
-  //Default, with no custom navigation
+  //no custom buttons
   if (numberOfChildren === 0) {
     return (
       <section
-        id="step-nav-section"
+        id="stepper-nav"
         style={{ display: "flex", justifyContent: "space-evenly" }}
       >
         {limiters ? (
@@ -54,7 +55,7 @@ export const StepperNav: FC<StepButtonsProps> = ({
             rgbaColor={color}
             fadePercentage={fadePercentage}
             disabled={0 === step}
-            className="step-buttons step-nav-buttons step--nav-limiters"
+            className="stepper-buttons stepper-nav--btns stepper-nav--start step--nav-limiters"
             onClick={() => setCurrentStep(0)}
           >
             &#171;
@@ -67,36 +68,40 @@ export const StepperNav: FC<StepButtonsProps> = ({
             rgbaColor={color}
             fadePercentage={fadePercentage}
             type="button"
-            className="step-buttons step-nav-buttons step-nav-previous"
+            className="step-buttons stepper-nav--btns stepper-nav--previous"
             disabled={step === 0}
           >
             &#8249;
           </Button>
         </PreviousStepButton>
-        <section>
+        <section
+          className={`${css({
+            display: "flex",
+          })}`}
+        >
           {steps ? (
-            totalStepArray.map((s) => (
-              <section key={useId()}>
-                <CurrentStepButton step={s}>
-                  {step === s ? (
+            labels.map((s, i) => (
+              <section key={i} className={`${css({ display: "flex" })}`}>
+                <CurrentStepButton step={i}>
+                  {step === i ? (
                     <Button
                       height={size}
                       width={size}
                       rgbaColor={color}
                       fadePercentage={fadePercentage}
-                      className="step-buttons step-nav-buttons step-nav-current"
+                      className="stepper-buttons stepper-nav--btns stepper-nav--current"
                     >
-                      {s + 1}
+                      {i + 1}
                     </Button>
                   ) : (
                     <Button
-                      className="step-buttons step-nav-buttons"
+                      className="step-buttons stepper-nav--btns"
                       height={size}
                       width={size}
                       rgbaColor={color}
                       fadePercentage={fadePercentage}
                     >
-                      {s + 1}
+                      {i + 1}
                     </Button>
                   )}
                 </CurrentStepButton>
@@ -110,7 +115,7 @@ export const StepperNav: FC<StepButtonsProps> = ({
                 rgbaColor={color}
                 fadePercentage={fadePercentage}
                 type="button"
-                className="step-buttons step-nav-buttons step-nav-current"
+                className="step-buttons stepper-nav--btns stepper-nav--current"
               >
                 {step + 1}
               </Button>
@@ -125,7 +130,7 @@ export const StepperNav: FC<StepButtonsProps> = ({
             rgbaColor={color}
             type="button"
             fadePercentage={fadePercentage}
-            className="step-buttons step-nav-buttons step-nav-next"
+            className="step-buttons stepper-nav--btns stepper-nav--next"
             disabled={total === step}
           >
             &#8250;
@@ -137,7 +142,7 @@ export const StepperNav: FC<StepButtonsProps> = ({
             width={size}
             rgbaColor={color}
             fadePercentage={fadePercentage}
-            className="step-buttons step-nav-buttons step-nav-limiters"
+            className="step-buttons stepper-nav--btns stepper-nav--end stepper-nav--limiters"
             disabled={total === step}
             onClick={() => setCurrentStep(total)}
           >
@@ -171,6 +176,7 @@ export const StepperNav: FC<StepButtonsProps> = ({
     })
     return <>{newChildren}</>
   }
+  //if it is only custom buttons
   const newChildren = Children.map(
     children as ReactElement[],
     (child: ReactElement, i: number) => {

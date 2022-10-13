@@ -1,25 +1,23 @@
-import type { FC } from "react"
-import React, { useEffect, useState } from "react"
+import { FC } from "react"
+import React from "react"
 import { useStepper } from "Stepper"
 import { css } from "@emotion/css"
 import { Button } from "./components/Button"
 import * as colors from "./colors"
+
 interface Props {
   rgbColor?: string
   size?: number
   fadePercentage?: number
 }
+
 export const StepperBar: FC<Props> = ({
   rgbColor = "black",
   size = 50,
   fadePercentage = 0.45,
 }) => {
-  const { step, setCurrentStep, total } = useStepper()
-  const [totalSteps, setTotalSteps] = useState<number[]>([])
+  const { step, setCurrentStep, labels } = useStepper()
 
-  useEffect(() => {
-    setTotalSteps(Array.from(Array(total + 1).keys()))
-  }, [total])
   return (
     <ul
       className={`${css({
@@ -30,9 +28,9 @@ export const StepperBar: FC<Props> = ({
         listStyle: "none",
         left: 0,
         padding: "1em",
-      })} step-bar-ul`}
+      })} stepper-bar--ul`}
     >
-      {totalSteps.map((s, i) => {
+      {labels?.map((item, i) => {
         return (
           <li
             className={`${css({
@@ -48,13 +46,13 @@ export const StepperBar: FC<Props> = ({
                 flex: 1,
                 height: "5px",
                 backgroundColor:
-                  s < step
+                  i < step
                     ? rgbColor
                       ? rgbColor
                       : colors.secondary
                     : "transparent",
                 borderColor: `1px solid ${
-                  s < step
+                  i < step
                     ? rgbColor
                       ? rgbColor
                       : colors.secondary
@@ -63,42 +61,51 @@ export const StepperBar: FC<Props> = ({
                 borderRadius: "1em",
                 transition: "all ease 0.5s",
               },
-            })} step-bar-li`}
-            key={s}
+            })} stepper-bar--ul---li`}
+            key={i}
           >
             {step >= i ? (
               step === i ? (
-                <Button
-                  rgbaColor={`${rgbColor ? rgbColor : colors.secondaryDark}`}
-                  onClick={() => setCurrentStep(s)}
-                  height={size}
-                  width={size}
-                  fadePercentage={fadePercentage}
-                  className="step-buttons step-bar-buttons step-bar-current"
-                >
-                  &#128504;
-                </Button>
+                <>
+                  <Button
+                    rgbaColor={`${rgbColor ? rgbColor : colors.secondaryDark}`}
+                    onClick={() => setCurrentStep(i)}
+                    height={size}
+                    width={size}
+                    fadePercentage={fadePercentage}
+                    className="step-buttons stepper-bar--btns stepper-bar--current"
+                  >
+                    &#128504;
+                  </Button>{" "}
+                  <p>{item}</p>
+                </>
               ) : (
-                <Button
-                  rgbaColor={`${rgbColor ? rgbColor : "yellow"}`}
-                  onClick={() => setCurrentStep(s)}
-                  height={size}
-                  width={size}
-                  fadePercentage={fadePercentage}
-                  className="step-buttons step-bar-buttons step-bar-previous"
-                >
-                  &#128504;
-                </Button>
+                <>
+                  <Button
+                    rgbaColor={`${rgbColor ? rgbColor : "yellow"}`}
+                    onClick={() => setCurrentStep(i)}
+                    height={size}
+                    width={size}
+                    fadePercentage={fadePercentage}
+                    className="step-buttons stepper-bar--btns stepper-bar--previous"
+                  >
+                    &#128504;
+                  </Button>
+                  <p>{item}</p>
+                </>
               )
             ) : (
-              <Button
-                height={size}
-                width={size}
-                title={`${1 + i}`}
-                fadePercentage={fadePercentage}
-                rgbaColor={`${rgbColor ? rgbColor : colors.secondaryDark}`}
-                className="step-buttons step-bar-buttons step-bar-next"
-              ></Button>
+              <>
+                <Button
+                  height={size}
+                  width={size}
+                  title={`${1 + i}`}
+                  fadePercentage={fadePercentage}
+                  rgbaColor={`${rgbColor ? rgbColor : colors.secondaryDark}`}
+                  className="step-buttons stepper-bar--btns stepper-bar--next"
+                ></Button>
+                <p>{item}</p>
+              </>
             )}
           </li>
         )

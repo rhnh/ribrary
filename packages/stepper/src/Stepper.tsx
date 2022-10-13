@@ -1,26 +1,14 @@
-import React from "react"
-import {
-  Children,
-  createContext,
-  FC,
-  ReactElement,
-  ReactNode,
-  useContext,
-  useState,
-  cloneElement,
-  HtmlHTMLAttributes,
-  useEffect,
-} from "react"
-
-import { callAll } from "utils"
+import React, { useCallback, useEffect } from "react"
+import { createContext, FC, ReactNode, useContext, useState } from "react"
 
 interface Props {
   next(): void
   previous(): void
   step: number
-  total: number
   setCurrentStep(e: number): void
-  setTotalStep(e: number): void
+  labels: string[] // The <Step/> takes label property as argument. It will be need for <StepperBar/> This can be extend for other properties, incase indeed.
+  total: number
+  addLabel(e: string): void
 }
 
 const StepperContext = createContext<Props | null>(null)
@@ -41,71 +29,52 @@ interface StepperProps {
   isNextDisable?: boolean
 }
 
-export const Steps: FC<StepperProps> = ({ children }) => {
-  const { step, setTotalStep } = useStepper()
-  useEffect(() => {
-    setTotalStep(Children.count(children) - 1)
-  }, [children, setTotalStep])
-  const showOnlyCurrentChild = Children.map(children, (child, index) => {
-    return index === step ? <>{child}</> : null
-  })
-  return <section>{showOnlyCurrentChild}</section>
-}
-
 export const Stepper: FC<StepperProps> = ({ children }) => {
-  const [total, setTotal] = useState<number>(0)
-  const [step, setStep] = useState<number>(total)
+  const [step, setStep] = useState<number>(0)
+  const [labels, setLabels] = useState<string[]>([])
+  const [total, setTotal] = useState(0)
 
-  const next = () => {
+  useEffect(() => {
+    setTotal(labels.length - 1)
+  }, [labels, labels.length])
+
+  const next = useCallback(() => {
     step > total ? setStep(total) : setStep((e) => (e += 1))
-  }
-  const previous = () => {
+  }, [step, total, setStep])
+
+  const previous = useCallback(() => {
     step < 0 ? setStep(0) : setStep((e) => (e -= 1))
-  }
-  const setCurrentStep = (e: number) => {
-    setStep(e)
-  }
-  const setTotalStep = (e: number) => {
-    setTotal(e)
+  }, [step, setStep])
+
+  const setCurrentStep = useCallback(
+    (e: number) => {
+      setStep(e)
+    },
+    [setStep]
+  )
+
+  const addLabel = (k: string) => {
+    setLabels((v) => {
+      if (v.includes(k)) {
+        return v
+      }
+      return [...v, k]
+    })
   }
 
   return (
     <StepperContext.Provider
-      value={{ next, previous, step, setCurrentStep, total, setTotalStep }}
+      value={{
+        next,
+        previous,
+        step,
+        setCurrentStep,
+        labels,
+        addLabel,
+        total,
+      }}
     >
       {children}
     </StepperContext.Provider>
   )
-}
-
-export const NextStepButton: FC<
-  { children: ReactElement } & HtmlHTMLAttributes<HTMLButtonElement>
-> = ({ children }: { children: ReactElement }) => {
-  const { next } = useStepper()
-  return cloneElement(children, {
-    onClick: callAll(() => next(), children.props.onClick),
-  })
-}
-
-export const PreviousStepButton: FC<
-  { children: ReactElement } & HtmlHTMLAttributes<HTMLButtonElement>
-> = ({ children }: { children: ReactElement }) => {
-  const { previous } = useStepper()
-  return cloneElement(children, {
-    onClick: callAll(() => previous(), children.props.onClick),
-  })
-}
-export const CurrentStepButton: FC<
-  {
-    children: ReactElement
-    step?: number
-  } & HtmlHTMLAttributes<HTMLButtonElement>
-> = ({ children, step }: { children: ReactElement; step?: number }) => {
-  const { setCurrentStep, step: current } = useStepper()
-  return cloneElement(children, {
-    onClick: callAll(
-      () => setCurrentStep(step ?? current),
-      children.props.onClick
-    ),
-  })
 }

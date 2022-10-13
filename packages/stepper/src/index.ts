@@ -1,9 +1,10 @@
+export { Stepper } from "./Stepper"
+export { StepperNav } from "./StepperNav"
+export { StepperBar } from "./StepperBar"
+export { Steps } from "./Steps"
+export { Step } from "./Step"
 export {
-  Stepper,
-  Steps,
   NextStepButton,
   PreviousStepButton,
   CurrentStepButton,
-} from "./Stepper"
-export { StepperNav } from "./StepperNav"
-export { StepperBar } from "./StepperBar"
+} from "./Navigation"
