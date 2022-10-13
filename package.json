@@ -4,7 +4,7 @@
   "workspaces": [
     "packages/stepper"
   ],
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "A collection of my react component as library",
   "main": "index.js",
   "keywords": [
