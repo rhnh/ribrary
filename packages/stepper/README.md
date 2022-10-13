@@ -10,11 +10,11 @@
 
 It has four components
 
- - <Stepper> : the main/parent component
- - <StepperNav>  : simple navigation buttons
- - <StepperBar> :  A progress bar to show an over view 
- - <Steps> : A Container to for every step
- - <Step> : optional sub-container for <Steps> for clarity and additional feature.
+ 1. Stepper : the main/parent component
+ 2. StepperNav  : simple navigation buttons
+ 3. StepperBar :  A progress bar to show an over view 
+ 4. Steps : A Container to for every step
+ 5. Step : optional sub-container for <Steps> for clarity and additional feature.
  
 ### Basics: 
 ```js
@@ -32,8 +32,11 @@ It has four components
   </Stepper>
 ```
 
+# Example
+- [preview](https://react-ts-o87qvb.stackblitz.io)
+- [editor](https://stackblitz.com/edit/react-ts-o87qvb?file=App.tsx)
 
-# Customizing <StepperBar>
+# Customizing StepperBar
 ```js
 <StepperBar   rgbColor="a color name in RGB", size={23} fadePercentage={23}>
 ```
@@ -41,7 +44,7 @@ It has four components
 - size: size of buttons 
 - fadePercentage: fade on hover
 
-#  Customizing <StepperNav>
+#  Customizing StepperNav
 ```js
 
 <StepperNav limiters={true} steps={true} rgbColor:"rgb(255,0,0)" size={40}  fadePercentage={32}/>
@@ -53,10 +56,10 @@ It has four components
 - rgbColor: color for buttons: you can over ride with your own css
 - size: size of buttons 
 
-### Using your own next and previous, without using <StepperBar> and <StepperNav>
- - NextStepButton
- - PreviousStepButton
- - CurrentStepButton
+### Using your own next and previous, without using StepperBar and StepperNav
+ 1. NextStepButton
+ 2. PreviousStepButton
+ 3. CurrentStepButton
 
  ```js 
  import {PreviousStepButton} from "@ribrary/stepper";
@@ -80,7 +83,7 @@ It has four components
  ```
 ### Other Customizations
 - step-buttons: for all buttons
-#### css classes for <StepperNav/>
+#### css classes for StepperNav
 - stepper-buttons: for all buttons
 - stepper-nav: for main section 
 - stepper-nav--btns: for all navigation buttons
@@ -89,7 +92,7 @@ It has four components
 - stepper-nav--current: for current buttons
 - stepper-nav--next
 
-#### css classes for <StepperBar/>
+#### css classes for StepperBar
 - stepper-buttons: for all buttons
 - stepper-bar: main class for nav
 - stepper-bar--btn: for all bar buttons
