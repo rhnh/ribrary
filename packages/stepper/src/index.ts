@@ -1,4 +1,4 @@
-export { Stepper } from "./Stepper"
+export { Stepper, useStepper } from "./Stepper"
 export { StepperNav } from "./StepperNav"
 export { StepperBar } from "./StepperBar"
 export { Steps } from "./Steps"

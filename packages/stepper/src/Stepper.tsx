@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect } from "react"
+import React, { useCallback } from "react"
 import { createContext, FC, ReactNode, useContext, useState } from "react"
+import { useEnhancedEffect } from "utils"
 
 interface Props {
   next(): void
@@ -34,7 +35,7 @@ export const Stepper: FC<StepperProps> = ({ children }) => {
   const [labels, setLabels] = useState<string[]>([])
   const [total, setTotal] = useState(0)
 
-  useEffect(() => {
+  useEnhancedEffect(() => {
     setTotal(labels.length - 1)
   }, [labels, labels.length])
 
@@ -76,5 +77,16 @@ export const Stepper: FC<StepperProps> = ({ children }) => {
     >
       {children}
     </StepperContext.Provider>
+  )
+}
+
+interface PProps {
+  value: Props
+  children: ReactNode
+}
+
+export const StepperProvider: FC<PProps> = ({ children, value }) => {
+  return (
+    <StepperContext.Provider value={value}>{children}</StepperContext.Provider>
   )
 }

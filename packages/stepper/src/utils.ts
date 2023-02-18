@@ -1,3 +1,5 @@
+import { useEffect, useLayoutEffect } from "react"
+
 interface CallBack<Params extends any[]> {
   (...args: Params): void
 }
@@ -16,3 +18,6 @@ export const shade = (fadePercentage: number) => (color?: string) =>
   color
     ? color.replace(/rgb/i, "rgba").replace(/\)/i, `,${fadePercentage})`)
     : "rgba(0, 0, 0, 0.30)"
+
+export const useEnhancedEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect
